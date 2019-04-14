@@ -1,10 +1,10 @@
 SOURCES += \
-    $$PWD/src/commandqueue.cpp \
-    $$PWD/src/commandentity.cpp \
-    $$PWD/src/commandunit.cpp
+    $$PWD/commandqueue.cpp \
+    $$PWD/commandentity.cpp \
+    $$PWD/commandunit.cpp
 
 HEADERS += \
-    $$PWD/src/commandqueue.h \
-    $$PWD/src/commandentityinfo.h \
-    $$PWD/src/commandentity.h \    
-    $$PWD/src/commandunit.h
+    $$PWD/commandqueue.h \
+    $$PWD/commandentityinfo.h \
+    $$PWD/commandentity.h \    
+    $$PWD/commandunit.h
