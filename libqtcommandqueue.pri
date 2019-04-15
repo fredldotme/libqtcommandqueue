@@ -7,4 +7,5 @@ HEADERS += \
     $$PWD/src/commandqueue.h \
     $$PWD/src/commandentityinfo.h \
     $$PWD/src/commandentity.h \    
-    $$PWD/src/commandunit.h
+    $$PWD/src/commandunit.h \
+    $$PWD/src/stdfunctioncommandentity.h
