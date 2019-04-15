@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include <commandentityinfo.h>
+#include "commandentityinfo.h"
 
 class CommandEntity : public QObject
 {
