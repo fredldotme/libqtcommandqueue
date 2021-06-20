@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QTimer>
+#include <QEventLoop>
 
 CommandEntity::CommandEntity(QObject *parent, CommandEntityInfo info) :
     QObject(parent), m_commandInfo(info)
@@ -54,6 +55,14 @@ void CommandEntity::run()
 
     startWork();
     Q_EMIT started();
+}
+
+void CommandEntity::waitForFinished()
+{
+    QEventLoop loop;
+    QObject::connect(this, &CommandEntity::done, &loop, &QEventLoop::quit);
+    QObject::connect(this, &CommandEntity::aborted, &loop, &QEventLoop::quit);
+    loop.exec();
 }
 
 void CommandEntity::abort(bool intended)

@@ -4,8 +4,7 @@
 #include <QDebug>
 #include <QMutexLocker>
 
-CommandQueue::CommandQueue(QObject *parent) : QObject(parent),
-    m_queueMutex(QMutex::Recursive)
+CommandQueue::CommandQueue(QObject *parent) : QObject(parent)
 {
 
 }
@@ -131,6 +130,11 @@ void CommandQueue::enqueue(QVariant command)
     }
 }
 
+void CommandQueue::setCompletionHandler(CompletionHandler handler)
+{
+    this->m_completionHandler = handler;
+}
+
 void CommandQueue::run()
 {
     qDebug() << Q_FUNC_INFO;
@@ -230,6 +234,9 @@ void CommandQueue::deleteCommand(CommandEntity* command)
 
     this->m_queue.removeOne(command);
     Q_EMIT removed(command);
+
+    // Give a synchronous participant a chance to read data out of the command directly
+    this->m_completionHandler(command);
 
     qDebug() << "Command finished?" << receipt.finished;
     Q_EMIT commandFinished(receipt);

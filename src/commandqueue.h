@@ -43,6 +43,8 @@ public:
 };
 Q_DECLARE_METATYPE(CommandReceipt)
 
+typedef std::function<void(CommandEntity*)> CompletionHandler;
+
 class CommandQueue : public QObject
 {
     Q_OBJECT
@@ -62,6 +64,8 @@ public:
     void enqueue(CommandEntity* command);
     void enqueue(QList<CommandEntity*> commands);
 
+    void setCompletionHandler(CompletionHandler handler);
+
 public slots:
     void enqueue(QVariant command);
     void run();
@@ -76,11 +80,12 @@ private:
     void deleteCurrentCommand();
     void deleteCommand(CommandEntity* command = Q_NULLPTR);
     void setRunning(bool v);
+    CompletionHandler m_completionHandler;
 
     bool m_immediate = true;
     QQueue<CommandEntity*> m_queue;
     bool m_running = false;
-    QMutex m_queueMutex;
+    QRecursiveMutex m_queueMutex;
 
 signals:
     void added(CommandEntity* entity);

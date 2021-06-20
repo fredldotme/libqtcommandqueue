@@ -33,6 +33,7 @@ public:
 
 public slots:
     void run();
+    void waitForFinished();
     void abort(bool intended = false);
     bool isFinished() const { return m_state == FINISHED; }
     bool isRunning() const { return m_state == RUNNING; }
