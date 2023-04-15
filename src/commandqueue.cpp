@@ -8,6 +8,7 @@ CommandQueue::CommandQueue(QObject *parent) : QObject(parent)
 #if QT_VERSION < 0x051400
 , m_queueMutex(QMutex::Recursive)
 #endif
+, m_completionHandler(nullptr)
 {
 
 }
@@ -239,7 +240,8 @@ void CommandQueue::deleteCommand(CommandEntity* command)
     Q_EMIT removed(command);
 
     // Give a synchronous participant a chance to read data out of the command directly
-    this->m_completionHandler(command);
+    if (m_completionHandler)
+        this->m_completionHandler(command);
 
     qDebug() << "Command finished?" << receipt.finished;
     Q_EMIT commandFinished(receipt);
