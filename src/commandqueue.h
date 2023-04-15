@@ -85,7 +85,11 @@ private:
     bool m_immediate = true;
     QQueue<CommandEntity*> m_queue;
     bool m_running = false;
+#if QT_VERSION < 0x051400
+    QMutex m_queueMutex;
+#else
     QRecursiveMutex m_queueMutex;
+#endif
 
 signals:
     void added(CommandEntity* entity);

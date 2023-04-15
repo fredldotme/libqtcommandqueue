@@ -5,6 +5,9 @@
 #include <QMutexLocker>
 
 CommandQueue::CommandQueue(QObject *parent) : QObject(parent)
+#if QT_VERSION < 0x051400
+, m_queueMutex(QMutex::Recursive)
+#endif
 {
 
 }
