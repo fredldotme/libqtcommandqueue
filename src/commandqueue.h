@@ -6,6 +6,8 @@
 #include <QQueue>
 #include <QMutex>
 
+#include <functional>
+
 #include "commandentity.h"
 
 class CommandReceipt
